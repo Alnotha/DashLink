@@ -25,7 +25,7 @@ const plans = [
   },
   {
     name: "Enterprise",
-    price: "Custom",
+    price: "499",
     features: [
       "Unlimited platform integrations",
       "Custom menu strategies",
@@ -33,7 +33,8 @@ const plans = [
       "Daily analytics & insights",
       "Dedicated success team",
       "Custom integration solutions"
-    ]
+    ],
+    highlighted: true
   }
 ];
 
@@ -44,12 +45,15 @@ export default function Pricing() {
         <h2 className="text-3xl font-bold text-center mb-12">Pricing Plans</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan) => (
-            <Card key={plan.name} className="relative">
+            <Card 
+              key={plan.name} 
+              className={`relative ${plan.highlighted ? 'border-primary shadow-xl transform hover:scale-105 transition-transform duration-300' : ''}`}
+            >
               <CardHeader>
                 <CardTitle>{plan.name}</CardTitle>
-                <div className="mt-4 text-3xl font-bold">
-                  ${plan.price}
-                  {plan.price !== "Custom" && <span className="text-lg font-normal">/mo</span>}
+                <div className="mt-4">
+                  <span className="text-4xl font-bold">${plan.price}</span>
+                  <span className="text-lg font-normal">/mo</span>
                 </div>
               </CardHeader>
               <CardContent>

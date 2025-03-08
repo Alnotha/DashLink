@@ -18,8 +18,8 @@ const services = [
     icon: Clock
   },
   {
-    title: "Menu Optimization",
-    description: "Expert guidance on menu pricing and item optimization",
+    title: "Platform Optimization",
+    description: "Expert guidance on platform settings and delivery optimization",
     icon: BadgeHelp
   }
 ];
