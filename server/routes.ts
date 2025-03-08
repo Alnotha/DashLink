@@ -32,6 +32,24 @@ export async function registerRoutes(app: Express) {
     }
   });
 
+  // Test endpoint for email configuration
+  app.get("/api/test-email", async (_req, res) => {
+    try {
+      await sendContactNotification({
+        businessName: "Test Business",
+        ownerName: "Test Owner",
+        email: "test@example.com",
+        phone: "1234567890",
+        message: "This is a test email",
+        storeCount: 1
+      });
+      res.json({ message: "Test email sent successfully" });
+    } catch (error) {
+      console.error('Error sending test email:', error);
+      res.status(500).json({ message: "Failed to send test email", error: error.message });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
