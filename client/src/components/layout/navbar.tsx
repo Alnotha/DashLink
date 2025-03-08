@@ -9,10 +9,10 @@ export default function Navbar() {
       <div className="container flex h-16 items-center">
         <Link href="/">
           <a className="mr-8 flex items-center space-x-2">
-            <span className="font-bold text-xl text-primary">DeliverEase</span>
+            <span className="font-bold text-xl text-primary">DashLink</span>
           </a>
         </Link>
-        
+
         <div className="flex items-center space-x-6 text-sm font-medium">
           <Link href="/">
             <a className={location === "/" ? "text-primary" : "text-foreground/60 hover:text-foreground"}>
