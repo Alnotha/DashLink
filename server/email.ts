@@ -2,11 +2,12 @@ import nodemailer from 'nodemailer';
 
 // Create reusable transporter object using Gmail SMTP
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // use SSL
   auth: {
-    user: process.env.GMAIL_USER || '',
-    // Use App Password for Gmail, not your regular password
-    pass: process.env.GMAIL_APP_PASSWORD || ''
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD
   }
 });
 
@@ -20,8 +21,12 @@ interface ContactNotification {
 }
 
 export async function sendContactNotification(data: ContactNotification): Promise<void> {
+  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+    throw new Error('Gmail credentials are not properly configured');
+  }
+
   const mailOptions = {
-    from: process.env.GMAIL_USER,
+    from: `"DashLink Contact" <${process.env.GMAIL_USER}>`,
     to: 'alnotha@gmail.com',
     subject: `New Contact Form Submission - ${data.businessName}`,
     text: `
@@ -51,6 +56,7 @@ ${data.message}
   };
 
   try {
+    await transporter.verify(); // Verify connection configuration
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error('Error sending email:', error);
